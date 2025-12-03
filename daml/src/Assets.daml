@@ -1,6 +1,6 @@
 module Assets where
 
-data AssetType = CantonCoin | Cryptocurrency | RWA | Bond | Equity
+data AssetType = CantonCoin | Stablecoin | Cryptocurrency | RWA | Bond | Equity
   deriving (Eq, Show)
 
 template TokenizedAsset

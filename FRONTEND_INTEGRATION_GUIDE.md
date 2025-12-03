@@ -261,8 +261,13 @@ REACT_APP_API_TIMEOUT=30000
     "symbol": "$CC"
   },
   {
+    "type": "Stablecoin",
+    "examples": ["CUSD", "USDC"],
+    "description": "CUSD: USD-pegged stablecoin by Brale"
+  },
+  {
     "type": "Cryptocurrency",
-    "examples": ["BTC", "ETH", "USDC"]
+    "examples": ["BTC", "ETH"]
   },
   {
     "type": "RWA",
@@ -581,15 +586,16 @@ curl -X POST http://localhost:4000/api/margin/verify \
 
 ## Asset Types Reference
 
-| Asset Type | Examples | Price (USD) |
-|------------|----------|-------------|
-| `CC` | Canton Coin | $1.00 |
-| `BTC` | Bitcoin | $95,000 |
-| `ETH` | Ethereum | $3,500 |
-| `USDC` | USDC Stablecoin | $1.00 |
-| `RWA-PROPERTY` | Real Estate | $500,000 |
-| `BOND-CORP` | Corporate Bonds | $1,000 |
-| `EQUITY-TECH` | Tech Stocks | $150 |
+| Asset Type | Examples | Price (USD) | Notes |
+|------------|----------|-------------|-------|
+| `CC` | Canton Coin | $1.00 | Native Canton token |
+| `CUSD` | CUSD | $1.00 | USD-pegged stablecoin by Brale (regulated MSB) |
+| `USDC` | USDC | $1.00 | USD stablecoin |
+| `BTC` | Bitcoin | $95,000 | Cryptocurrency |
+| `ETH` | Ethereum | $3,500 | Cryptocurrency |
+| `RWA-PROPERTY` | Real Estate | $500,000 | Tokenized real-world asset |
+| `BOND-CORP` | Corporate Bonds | $1,000 | Fixed income |
+| `EQUITY-TECH` | Tech Stocks | $150 | Tokenized equity |
 
 ---
 

@@ -8,7 +8,8 @@ const assets = new Map();
 router.get('/types', async (req, res) => {
   res.json([
     { type: 'Canton Coin', examples: ['CC'], symbol: '$CC' },
-    { type: 'Cryptocurrency', examples: ['BTC', 'ETH', 'USDC'] },
+    { type: 'Stablecoin', examples: ['CUSD', 'USDC'], description: 'CUSD: USD-pegged stablecoin by Brale' },
+    { type: 'Cryptocurrency', examples: ['BTC', 'ETH'] },
     { type: 'RWA', examples: ['Real Estate', 'Commodities', 'Art'] },
     { type: 'Bond', examples: ['Corporate Bonds', 'Government Bonds'] },
     { type: 'Equity', examples: ['Tokenized Stocks'] }

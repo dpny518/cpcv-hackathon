@@ -7,9 +7,10 @@ interface AssetPrice {
 class PriceOracle {
   private prices: Map<string, number> = new Map([
     ['CC', 1.0],              // Canton Coin
+    ['CUSD', 1.0],            // CUSD Stablecoin (Brale)
+    ['USDC', 1.0],            // USDC Stablecoin
     ['BTC', 95000],           // Bitcoin
     ['ETH', 3500],            // Ethereum
-    ['USDC', 1.0],            // USDC Stablecoin
     ['RWA-PROPERTY', 500000], // Real Estate
     ['BOND-CORP', 1000],      // Corporate Bond
     ['EQUITY-TECH', 150]      // Tech Equity

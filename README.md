@@ -64,7 +64,8 @@ Zero-knowledge proofs verify collateral sufficiency without revealing portfolio 
 
 ### 💰 Multi-Asset Collateral Support
 - Canton Coin ($CC)
-- Cryptocurrencies (BTC, ETH, USDC)
+- Stablecoins (CUSD by Brale, USDC)
+- Cryptocurrencies (BTC, ETH)
 - Real-World Assets (RWA)
 - Bonds (Corporate, Government)
 - Equity (Tokenized stocks)

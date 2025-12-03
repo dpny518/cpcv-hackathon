@@ -257,17 +257,59 @@ REACT_APP_API_TIMEOUT=30000
 [
   {
     "type": "Canton Coin",
-    "examples": ["CC"],
-    "symbol": "$CC"
+    "symbol": "CC",
+    "logo": "https://n1.cantondefi.com/tokens/canton.webp",
+    "description": "Native Canton Network token"
   },
   {
     "type": "Stablecoin",
-    "examples": ["CUSD", "USDC"],
-    "description": "CUSD: USD-pegged stablecoin by Brale"
+    "tokens": [
+      {
+        "symbol": "CUSD",
+        "logo": "https://pbs.twimg.com/profile_images/1985781052976271360/M22L1CAz_400x400.jpg",
+        "description": "USD-pegged by Brale"
+      },
+      {
+        "symbol": "USDC",
+        "logo": "https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDC.svg",
+        "description": "USD Coin"
+      },
+      {
+        "symbol": "USDT",
+        "logo": "https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDT.svg",
+        "description": "Tether USD"
+      }
+    ]
   },
   {
     "type": "Cryptocurrency",
-    "examples": ["BTC", "ETH"]
+    "tokens": [
+      {
+        "symbol": "BTC",
+        "logo": "https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/BTC.svg",
+        "description": "Bitcoin"
+      },
+      {
+        "symbol": "ETH",
+        "logo": "https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/ETH.svg",
+        "description": "Ethereum"
+      },
+      {
+        "symbol": "SOL",
+        "logo": "https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/SOL.svg",
+        "description": "Solana"
+      },
+      {
+        "symbol": "TRX",
+        "logo": "https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TRX.svg",
+        "description": "Tron"
+      },
+      {
+        "symbol": "TON",
+        "logo": "https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TON.svg",
+        "description": "Toncoin"
+      }
+    ]
   },
   {
     "type": "RWA",
@@ -586,16 +628,20 @@ curl -X POST http://localhost:4000/api/margin/verify \
 
 ## Asset Types Reference
 
-| Asset Type | Examples | Price (USD) | Notes |
-|------------|----------|-------------|-------|
-| `CC` | Canton Coin | $1.00 | Native Canton token |
-| `CUSD` | CUSD | $1.00 | USD-pegged stablecoin by Brale (regulated MSB) |
-| `USDC` | USDC | $1.00 | USD stablecoin |
-| `BTC` | Bitcoin | $95,000 | Cryptocurrency |
-| `ETH` | Ethereum | $3,500 | Cryptocurrency |
-| `RWA-PROPERTY` | Real Estate | $500,000 | Tokenized real-world asset |
-| `BOND-CORP` | Corporate Bonds | $1,000 | Fixed income |
-| `EQUITY-TECH` | Tech Stocks | $150 | Tokenized equity |
+| Symbol | Name | Price (USD) | Logo |
+|--------|------|-------------|------|
+| `CC` | Canton Coin | $1.00 | [View](https://n1.cantondefi.com/tokens/canton.webp) |
+| `CUSD` | CUSD (Brale) | $1.00 | [View](https://pbs.twimg.com/profile_images/1985781052976271360/M22L1CAz_400x400.jpg) |
+| `USDC` | USD Coin | $1.00 | [View](https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDC.svg) |
+| `USDT` | Tether | $1.00 | [View](https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDT.svg) |
+| `BTC` | Bitcoin | $95,000 | [View](https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/BTC.svg) |
+| `ETH` | Ethereum | $3,500 | [View](https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/ETH.svg) |
+| `SOL` | Solana | $180 | [View](https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/SOL.svg) |
+| `TRX` | Tron | $0.25 | [View](https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TRX.svg) |
+| `TON` | Toncoin | $5.50 | [View](https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TON.svg) |
+| `RWA-PROPERTY` | Real Estate | $500,000 | - |
+| `BOND-CORP` | Corporate Bond | $1,000 | - |
+| `EQUITY-TECH` | Tech Equity | $150 | - |
 
 ---
 

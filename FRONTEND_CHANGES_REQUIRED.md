@@ -95,20 +95,45 @@ The backend has been updated to support Canton-specific assets. Your frontend ne
 </select>
 ```
 
-### Update 2: Asset Icons/Logos
+### Update 2: Asset Logos
 
-Add icons for new asset types:
+Display token logos from the API response:
 
 ```jsx
-const assetIcons = {
-  'CC': '🪙',           // Canton Coin
-  'CUSD': '💵',         // CUSD Stablecoin
-  'USDC': '💵',         // USDC
-  'BTC': '₿',           // Bitcoin
-  'ETH': 'Ξ',           // Ethereum
-  'RWA-PROPERTY': '🏠', // Real Estate
-  'BOND-CORP': '📜',    // Bond
-  'EQUITY-TECH': '📈'   // Equity
+const TokenLogo = ({ symbol, logo }) => (
+  <img 
+    src={logo} 
+    alt={symbol}
+    style={{ width: 24, height: 24, borderRadius: '50%' }}
+  />
+);
+
+// Usage in dropdown
+<select name="assetType">
+  <option value="CC">
+    Canton Coin (CC)
+  </option>
+  <option value="CUSD">CUSD</option>
+  <option value="USDC">USDC</option>
+  <option value="USDT">USDT</option>
+  <option value="BTC">Bitcoin</option>
+  <option value="ETH">Ethereum</option>
+  <option value="SOL">Solana</option>
+  <option value="TRX">Tron</option>
+  <option value="TON">Toncoin</option>
+</select>
+
+// Logo URLs are provided in API response
+const logos = {
+  'CC': 'https://n1.cantondefi.com/tokens/canton.webp',
+  'CUSD': 'https://pbs.twimg.com/profile_images/1985781052976271360/M22L1CAz_400x400.jpg',
+  'USDC': 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDC.svg',
+  'USDT': 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDT.svg',
+  'BTC': 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/BTC.svg',
+  'ETH': 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/ETH.svg',
+  'SOL': 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/SOL.svg',
+  'TRX': 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TRX.svg',
+  'TON': 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TON.svg'
 };
 ```
 
@@ -135,15 +160,22 @@ const formatAssetAmount = (assetType, amount) => {
 
 ### Update 4: Asset Value Calculation
 
-Prices are now:
+Current token prices:
 
 ```javascript
 const assetPrices = {
+  // Canton & Stablecoins
   'CC': 1.0,
   'CUSD': 1.0,
   'USDC': 1.0,
+  'USDT': 1.0,
+  // Cryptocurrencies
   'BTC': 95000,
   'ETH': 3500,
+  'SOL': 180,
+  'TRX': 0.25,
+  'TON': 5.5,
+  // Other Assets
   'RWA-PROPERTY': 500000,
   'BOND-CORP': 1000,
   'EQUITY-TECH': 150

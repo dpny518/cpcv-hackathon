@@ -7,12 +7,42 @@ const assets = new Map();
 
 router.get('/types', async (req, res) => {
   res.json([
-    { type: 'Canton Coin', examples: ['CC'], symbol: '$CC' },
-    { type: 'Stablecoin', examples: ['CUSD', 'USDC'], description: 'CUSD: USD-pegged stablecoin by Brale' },
-    { type: 'Cryptocurrency', examples: ['BTC', 'ETH'] },
-    { type: 'RWA', examples: ['Real Estate', 'Commodities', 'Art'] },
-    { type: 'Bond', examples: ['Corporate Bonds', 'Government Bonds'] },
-    { type: 'Equity', examples: ['Tokenized Stocks'] }
+    { 
+      type: 'Canton Coin', 
+      symbol: 'CC',
+      logo: 'https://n1.cantondefi.com/tokens/canton.webp',
+      description: 'Native Canton Network token'
+    },
+    { 
+      type: 'Stablecoin', 
+      tokens: [
+        { symbol: 'CUSD', logo: 'https://pbs.twimg.com/profile_images/1985781052976271360/M22L1CAz_400x400.jpg', description: 'USD-pegged by Brale' },
+        { symbol: 'USDC', logo: 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDC.svg', description: 'USD Coin' },
+        { symbol: 'USDT', logo: 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/USDT.svg', description: 'Tether USD' }
+      ]
+    },
+    { 
+      type: 'Cryptocurrency', 
+      tokens: [
+        { symbol: 'BTC', logo: 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/BTC.svg', description: 'Bitcoin' },
+        { symbol: 'ETH', logo: 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/ETH.svg', description: 'Ethereum' },
+        { symbol: 'SOL', logo: 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/SOL.svg', description: 'Solana' },
+        { symbol: 'TRX', logo: 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TRX.svg', description: 'Tron' },
+        { symbol: 'TON', logo: 'https://raw.githubusercontent.com/0xa3k5/web3icons/main/packages/core/src/svgs/tokens/branded/TON.svg', description: 'Toncoin' }
+      ]
+    },
+    { 
+      type: 'RWA', 
+      examples: ['Real Estate', 'Commodities', 'Art'] 
+    },
+    { 
+      type: 'Bond', 
+      examples: ['Corporate Bonds', 'Government Bonds'] 
+    },
+    { 
+      type: 'Equity', 
+      examples: ['Tokenized Stocks'] 
+    }
   ]);
 });
 

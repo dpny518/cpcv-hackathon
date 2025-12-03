@@ -42,7 +42,7 @@ router.post('/:id/deposit', async (req, res) => {
     valueUSD
   });
   
-  vault.totalValue = vault.collateralAssets.reduce((sum, a) => sum + a.valueUSD, 0);
+  vault.totalValue = vault.collateralAssets.reduce((sum: number, a: any) => sum + a.valueUSD, 0);
   
   res.json({ success: true, vault });
 });

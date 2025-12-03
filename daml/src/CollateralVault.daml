@@ -1,0 +1,75 @@
+module CollateralVault where
+
+import Assets
+import DA.List (foldl)
+
+data AssetPosition = AssetPosition
+  with
+    assetId: Text
+    assetType: AssetType
+    amount: Decimal
+    valueUSD: Decimal
+  deriving (Eq, Show)
+
+template CollateralVault
+  with
+    owner: Party
+    operator: Party
+    vaultId: Text
+    collateralAssets: [AssetPosition]
+    linkedPositions: [Text]
+  where
+    signatory owner, operator
+
+    let totalValue = foldl (\acc pos -> acc + pos.valueUSD) 0.0 collateralAssets
+
+    choice DepositAsset: ContractId CollateralVault
+      with
+        assetCid: ContractId TokenizedAsset
+      controller owner
+      do
+        asset <- fetch assetCid
+        archive assetCid
+        let newPosition = AssetPosition with
+              assetId = asset.assetId
+              assetType = asset.assetType
+              amount = asset.amount
+              valueUSD = asset.valueUSD
+        create this with collateralAssets = newPosition :: collateralAssets
+
+    choice WithdrawAsset: (ContractId CollateralVault, ContractId TokenizedAsset)
+      with
+        assetId: Text
+        issuer: Party
+      controller owner
+      do
+        let (toWithdraw, remaining) = partition (\p -> p.assetId == assetId) collateralAssets
+        case toWithdraw of
+          [pos] -> do
+            assetCid <- create TokenizedAsset with
+              issuer
+              owner
+              assetId = pos.assetId
+              assetType = pos.assetType
+              amount = pos.amount
+              valueUSD = pos.valueUSD
+            vaultCid <- create this with collateralAssets = remaining
+            return (vaultCid, assetCid)
+          _ -> error "Asset not found in vault"
+
+    choice LinkToPosition: ContractId CollateralVault
+      with
+        positionId: Text
+      controller owner
+      do
+        create this with linkedPositions = positionId :: linkedPositions
+
+    nonconsuming choice GetVaultValue: Decimal
+      controller owner
+      do
+        return totalValue
+
+    nonconsuming choice GetVaultInfo: (Decimal, Int)
+      controller owner, operator
+      do
+        return (totalValue, length collateralAssets)

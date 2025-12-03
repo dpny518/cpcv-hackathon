@@ -1,0 +1,47 @@
+.
+├── backend
+│   ├── package.json
+│   ├── src
+│   │   ├── api
+│   │   ├── index.ts
+│   │   ├── oracle
+│   │   └── services
+│   └── tsconfig.json
+├── BUILD_COMPLETE.md
+├── COMPLETION_SUMMARY.txt
+├── daml
+│   ├── daml.yaml
+│   └── src
+│       ├── Assets.daml
+│       ├── CollateralVault.daml
+│       ├── MarginVerification.daml
+│       └── Setup.daml
+├── docker
+│   ├── canton-config
+│   │   └── simple-topology.conf
+│   └── docker-compose.yml
+├── docs
+│   ├── ARCHITECTURE.md
+│   ├── DEPLOYMENT.md
+│   └── USER_FLOWS.md
+├── frontend
+│   ├── index.html
+│   ├── package.json
+│   ├── src
+│   │   ├── App.tsx
+│   │   ├── components
+│   │   ├── main.tsx
+│   │   ├── pages
+│   │   └── services
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+├── PROJECT_SUMMARY.md
+├── PROJECT_TREE.txt
+├── QUICK_START.md
+├── README.md
+├── start.sh
+├── stop.sh
+└── SUBMISSION.md
+
+16 directories, 29 files

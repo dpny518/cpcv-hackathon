@@ -1,0 +1,9 @@
+sdk-version: 3.3.0
+name: cpcv
+source: src
+version: 0.0.1
+dependencies:
+  - daml-prim
+  - daml-stdlib
+build-options:
+  - --target=2.1

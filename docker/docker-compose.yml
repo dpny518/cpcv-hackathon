@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  canton:
+    image: digitalasset/canton-open-source:3.3.0
+    container_name: cpcv-canton
+    ports:
+      - "5011:5011"  # Participant A Ledger API
+      - "5021:5021"  # Participant B Ledger API
+      - "5031:5031"  # Domain
+    volumes:
+      - ./canton-config:/canton/config
+      - ./data:/canton/data
+    command: daemon -c /canton/config/simple-topology.conf
+    environment:
+      - JAVA_OPTS=-Xmx2g
+    networks:
+      - canton-network
+
+networks:
+  canton-network:
+    driver: bridge

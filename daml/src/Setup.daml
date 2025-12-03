@@ -1,0 +1,72 @@
+module Setup where
+
+import Daml.Script
+import Assets
+import CollateralVault
+import MarginVerification
+
+data Parties = Parties
+  with
+    institutionA: Party
+    institutionB: Party
+    operator: Party
+    issuer: Party
+
+setupParties : Script Parties
+setupParties = do
+  institutionA <- allocatePartyWithHint "InstitutionA" (PartyIdHint "InstitutionA")
+  institutionB <- allocatePartyWithHint "InstitutionB" (PartyIdHint "InstitutionB")
+  operator <- allocatePartyWithHint "Operator" (PartyIdHint "Operator")
+  issuer <- allocatePartyWithHint "Issuer" (PartyIdHint "Issuer")
+  return Parties with ..
+
+setupDemo : Script ()
+setupDemo = do
+  parties <- setupParties
+  
+  -- Issue assets to Institution A
+  asset1 <- submit parties.issuer $ createCmd AssetIssuance with
+    issuer = parties.issuer
+    recipient = parties.institutionA
+    assetId = "USDC-001"
+    assetType = Stablecoin
+    amount = 500000.0
+    valueUSD = 500000.0
+  
+  asset2 <- submit parties.issuer $ createCmd AssetIssuance with
+    issuer = parties.issuer
+    recipient = parties.institutionA
+    assetId = "RWA-PROPERTY-001"
+    assetType = RWA
+    amount = 1.0
+    valueUSD = 500000.0
+  
+  -- Institution A accepts assets
+  assetCid1 <- submit parties.institutionA $ exerciseCmd asset1 Accept
+  assetCid2 <- submit parties.institutionA $ exerciseCmd asset2 Accept
+  
+  -- Create vault for Institution A
+  vault <- submitMulti [parties.institutionA, parties.operator] [] $ createCmd CollateralVault with
+    owner = parties.institutionA
+    operator = parties.operator
+    vaultId = "VAULT-A-001"
+    collateralAssets = []
+    linkedPositions = []
+  
+  -- Deposit assets into vault
+  vault2 <- submit parties.institutionA $ exerciseCmd vault DepositAsset with assetCid = assetCid1
+  vault3 <- submit parties.institutionA $ exerciseCmd vault2 DepositAsset with assetCid = assetCid2
+  
+  -- Create margin requirement
+  marginReq <- submitMulti [parties.institutionA, parties.institutionB, parties.operator] [] $ 
+    createCmd MarginRequirement with
+      provider = parties.institutionA
+      counterparty = parties.institutionB
+      operator = parties.operator
+      positionId = "POS-001"
+      requiredMargin = 800000.0
+      vaultId = "VAULT-A-001"
+      verificationStatus = Pending
+      lastChecked = None
+  
+  return ()

@@ -28,17 +28,17 @@ setupDemo = do
   asset1 <- submit parties.issuer $ createCmd AssetIssuance with
     issuer = parties.issuer
     recipient = parties.institutionA
-    assetId = "USDC-001"
-    assetType = Stablecoin
+    assetId = "CC-001"
+    assetType = CantonCoin
     amount = 500000.0
     valueUSD = 500000.0
   
   asset2 <- submit parties.issuer $ createCmd AssetIssuance with
     issuer = parties.issuer
     recipient = parties.institutionA
-    assetId = "RWA-PROPERTY-001"
-    assetType = RWA
-    amount = 1.0
+    assetId = "BTC-001"
+    assetType = Cryptocurrency
+    amount = 5.26
     valueUSD = 500000.0
   
   -- Institution A accepts assets

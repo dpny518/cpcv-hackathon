@@ -6,11 +6,13 @@ interface AssetPrice {
 
 class PriceOracle {
   private prices: Map<string, number> = new Map([
-    ['USDC', 1.0],
-    ['USDT', 1.0],
-    ['RWA-PROPERTY', 500000],
-    ['BOND-CORP', 1000],
-    ['EQUITY-TECH', 150]
+    ['CC', 1.0],              // Canton Coin
+    ['BTC', 95000],           // Bitcoin
+    ['ETH', 3500],            // Ethereum
+    ['USDC', 1.0],            // USDC Stablecoin
+    ['RWA-PROPERTY', 500000], // Real Estate
+    ['BOND-CORP', 1000],      // Corporate Bond
+    ['EQUITY-TECH', 150]      // Tech Equity
   ]);
 
   getPrice(assetType: string): number {

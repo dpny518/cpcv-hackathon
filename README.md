@@ -63,7 +63,8 @@ PrivaMargin uses zero-knowledge proofs to verify `collateral >= margin` **withou
 Zero-knowledge proofs verify collateral sufficiency without revealing portfolio details
 
 ### 💰 Multi-Asset Collateral Support
-- Stablecoins (USDC, USDT, DAI)
+- Canton Coin ($CC)
+- Cryptocurrencies (BTC, ETH, USDC)
 - Real-World Assets (RWA)
 - Bonds (Corporate, Government)
 - Equity (Tokenized stocks)
@@ -142,8 +143,8 @@ npm run dev
    - Create vault: `VAULT-DEMO-001`
 
 2. **Deposit Assets**
-   - Deposit USDC: $500,000
-   - Deposit RWA: $500,000
+   - Deposit Canton Coin ($CC): $500,000
+   - Deposit Bitcoin (BTC): $500,000
    - Total: $1,000,000
 
 3. **Verify Margin**

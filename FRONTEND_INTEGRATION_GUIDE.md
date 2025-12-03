@@ -256,8 +256,13 @@ REACT_APP_API_TIMEOUT=30000
 ```json
 [
   {
-    "type": "Stablecoin",
-    "examples": ["USDC", "USDT", "DAI"]
+    "type": "Canton Coin",
+    "examples": ["CC"],
+    "symbol": "$CC"
+  },
+  {
+    "type": "Cryptocurrency",
+    "examples": ["BTC", "ETH", "USDC"]
   },
   {
     "type": "RWA",
@@ -576,9 +581,12 @@ curl -X POST http://localhost:4000/api/margin/verify \
 
 ## Asset Types Reference
 
-| Asset Type | Examples | Price Source |
-|------------|----------|--------------|
-| `USDC` | USDC, USDT, DAI | $1.00 (stable) |
+| Asset Type | Examples | Price (USD) |
+|------------|----------|-------------|
+| `CC` | Canton Coin | $1.00 |
+| `BTC` | Bitcoin | $95,000 |
+| `ETH` | Ethereum | $3,500 |
+| `USDC` | USDC Stablecoin | $1.00 |
 | `RWA-PROPERTY` | Real Estate | $500,000 |
 | `BOND-CORP` | Corporate Bonds | $1,000 |
 | `EQUITY-TECH` | Tech Stocks | $150 |

@@ -56,15 +56,15 @@ daml ledger upload-dar .daml/dist/cpcv-0.0.1.dar --host localhost --port 5011
 
 ### Step 2: Deposit Assets (60 seconds)
 1. Click "Deposit Asset" on your vault
-2. Deposit USDC:
-   - Asset ID: `USDC-001`
-   - Asset Type: `USDC`
+2. Deposit Canton Coin:
+   - Asset ID: `CC-001`
+   - Asset Type: `CC`
    - Amount: `500000`
 3. Click "Deposit"
-4. Deposit RWA:
-   - Asset ID: `RWA-001`
-   - Asset Type: `RWA-PROPERTY`
-   - Amount: `1`
+4. Deposit Bitcoin:
+   - Asset ID: `BTC-001`
+   - Asset Type: `BTC`
+   - Amount: `5.26`
 5. Check Dashboard - should show $1,000,000 total
 
 ### Step 3: Verify Margin (60 seconds)
@@ -122,10 +122,10 @@ Result:     ❌ Insufficient → Margin Call
 
 ### Scenario C: Multi-Asset Portfolio
 ```
-USDC:       $500,000
-RWA:        $500,000
-Bond:       $200,000
-Total:      $1,200,000
+Canton Coin:  $500,000
+Bitcoin:      $500,000
+Ethereum:     $200,000
+Total:        $1,200,000
 ```
 
 ## 🛠️ Troubleshooting

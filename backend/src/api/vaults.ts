@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { institutionALedger } from '../services/ledger';
 import priceOracle from '../oracle/priceOracle';
 
 const router = Router();
@@ -60,7 +59,7 @@ router.get('/:id', async (req, res) => {
 
 router.get('/owner/:party', async (req, res) => {
   const { party } = req.params;
-  const ownerVaults = Array.from(vaults.values()).filter(v => v.owner === party);
+  const ownerVaults = Array.from(vaults.values()).filter((v: any) => v.owner === party);
   
   res.json(ownerVaults);
 });

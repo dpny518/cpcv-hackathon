@@ -68,7 +68,7 @@ router.post('/margin-call', async (req, res) => {
 });
 
 router.get('/margin-calls/active', async (req, res) => {
-  const active = Array.from(marginCalls.values()).filter(mc => mc.status === 'Active');
+  const active = Array.from(marginCalls.values()).filter((mc: any) => mc.status === 'Active');
   res.json(active);
 });
 

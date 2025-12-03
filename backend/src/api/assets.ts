@@ -67,7 +67,7 @@ router.post('/mint', async (req, res) => {
 
 router.get('/owner/:party', async (req, res) => {
   const { party } = req.params;
-  const ownerAssets = Array.from(assets.values()).filter(a => a.owner === party);
+  const ownerAssets = Array.from(assets.values()).filter((a: any) => a.owner === party);
   
   res.json(ownerAssets);
 });

@@ -35,7 +35,31 @@ PrivaMargin uses zero-knowledge proofs to verify `collateral >= margin` **withou
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Backend Versions
+
+This project includes **two backend implementations**:
+
+### 1. Demo Backend (`/backend`) ⭐ **Use This for Demos**
+- ✅ **In-memory storage** - No database or Canton required
+- ✅ **Instant setup** - Just `npm run dev`
+- ✅ **All features work** - Vaults, assets, margin verification
+- ✅ **Perfect for demos** - Fast, reliable, no dependencies
+
+**Use for**: Hackathon demos, development, testing, quick starts
+
+### 2. Production Backend (`/backend-daml`) 🔒 **Future Production Use**
+- 🔒 **Real Canton integration** - Connects to Canton Network
+- 🔒 **Daml smart contracts** - Actual on-chain execution
+- 🔒 **Requires setup** - Canton Docker, Daml SDK, jFrog access
+- 🔒 **Production-ready** - Full privacy guarantees
+
+**Use for**: Production deployment (requires Canton infrastructure)
+
+See `backend-daml/README.md` for production setup instructions.
+
+---
+
+## 🚀 Quick Start
 
 ```
 ┌─────────────────────────────────────────────────────────────┐

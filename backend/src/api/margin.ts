@@ -24,6 +24,20 @@ router.post('/verify', async (req, res) => {
   
   marginRequirements.set(positionId, verification);
   
+  // Auto-create margin call if insufficient
+  if (!proofResult.isValid) {
+    const marginCall = {
+      id: `MC-${Date.now()}`,
+      positionId,
+      requiredAmount: requiredMargin,
+      provider: 'InstitutionA',
+      counterparty: 'InstitutionB',
+      status: 'Active',
+      createdAt: new Date()
+    };
+    marginCalls.set(marginCall.id, marginCall);
+  }
+  
   // Return only status and proof to counterparty
   res.json({
     positionId,

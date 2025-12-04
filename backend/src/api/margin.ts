@@ -86,4 +86,18 @@ router.get('/margin-calls/active', async (req, res) => {
   res.json(active);
 });
 
+router.post('/margin-calls/:id/settle', async (req, res) => {
+  const { id } = req.params;
+  
+  const marginCall = marginCalls.get(id);
+  if (!marginCall) {
+    return res.status(404).json({ error: 'Margin call not found' });
+  }
+  
+  marginCall.status = 'Settled';
+  marginCall.settledAt = new Date();
+  
+  res.json({ success: true, marginCall });
+});
+
 export default router;

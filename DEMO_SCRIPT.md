@@ -9,16 +9,19 @@
 
 ### 1. Start Backend
 ```bash
-cd backend
+cd cpcv-hackathon/backend
 npm run dev
-# Wait for: 🚀 CPCV Backend running on http://localhost:4000
+# Wait for: 
+# 🔄 Initializing price oracle with CoinMarketCap...
+# ✅ Updated prices from CoinMarketCap
+# 🚀 CPCV Backend running on http://localhost:4000
 ```
 
 ### 2. Start Frontend
 ```bash
-cd ../privamargin-integrator
+cd privamargin-integrator
 npm run dev
-# Open: http://localhost:5173
+# Open: http://localhost:8080
 ```
 
 ### 3. Test Backend Connection
@@ -33,7 +36,7 @@ curl http://localhost:4000/health
 
 ### INTRO (30 seconds)
 
-**[Screen: Landing Page]**
+**[Screen: Landing Page - Dashboard]**
 
 **Script**:
 > "Hi, I'm presenting PrivaMargin - a privacy-preserving collateral management system built on Canton Network for the Collateral & Margin Tools track.
@@ -41,76 +44,110 @@ curl http://localhost:4000/health
 > PrivaMargin solves a critical problem in institutional finance: how do you prove you have sufficient collateral without revealing your exact portfolio value to counterparties?"
 
 **Actions**:
-- Show landing page
-- Hover over navigation
+- Show dashboard with metrics
+- Hover over navigation menu
 
 ---
 
-### PART 1: The Problem (30 seconds)
+### PART 1: Real-Time Asset Pricing (45 seconds)
 
-**[Screen: Navigate to /docs]**
+**[Screen: Navigate to /assets]**
 
 **Script**:
-> "Traditional systems require full portfolio disclosure, which exposes trading strategies and violates confidentiality. PrivaMargin uses zero-knowledge proofs to verify margin sufficiency without revealing actual collateral values."
+> "PrivaMargin integrates live pricing from CoinMarketCap for all supported assets."
 
 **Actions**:
-- Click "Docs" in navigation
-- Show API Reference tab briefly
-- Highlight privacy features
+1. Click "Assets" in navigation
+2. Show asset type cards with live prices:
+   - Canton Coin (CC): ~$0.07
+   - USDC: ~$1.00
+   - USDT: ~$1.00
+   - Bitcoin: ~$92,000
+   - Ethereum: ~$3,130
+   - Solana: ~$140
+3. Point out prices update every minute
+
+**Script**:
+> "Notice each asset shows its current market price. These are live prices that update automatically, ensuring accurate collateral valuations."
+
+**Actions**:
+4. Click "Demo Transfer" button
+5. Show the receive dialog
+6. Fill form:
+   - Asset ID: `cc-001`
+   - Asset Type: `Canton Coin (CC)`
+   - Amount: `10000`
+7. Click "Receive Demo Assets"
+8. Show asset appears in "Your Assets" section with value
 
 ---
 
-### PART 2: Vault Creation (45 seconds)
+### PART 2: Vault Creation & Management (60 seconds)
 
 **[Screen: Navigate to /vaults]**
 
 **Script**:
-> "Let me show you how it works. First, Institution A creates a collateral vault."
+> "Now let's create a collateral vault to manage our assets."
 
 **Actions**:
 1. Click "Vaults" in navigation
 2. Click "Create Vault" button
-3. Enter Vault ID: `VAULT-DEMO-001`
-4. Click "Create"
-5. Show the new vault card (Total Value: $0)
+3. Enter Vault ID: `demo-vault-001`
+4. Click "Create Vault"
+5. Show the new vault card appears
 
 **Script**:
-> "Now we have an empty vault. Let's add some collateral."
+> "We've created a vault. Now let's deposit our Canton Coins."
+
+**Actions**:
+6. Click on the vault card to open detail page
+7. Show vault detail page with:
+   - Total Value: $0
+   - Assets: 0
+   - Owner: InstitutionA
+8. Click "Deposit" button
+9. Show dropdown only shows assets you own (cc-001 with available amount)
+10. Select cc-001
+11. Enter amount: `5000`
+12. Show "Available: 10000 CC" text
+13. Click "Deposit Asset"
+14. Show vault updates:
+    - Total Value: ~$350 (5000 × $0.07)
+    - Assets: 1
+    - Asset card shows cc-001 with 5000 CC
+
+**Script**:
+> "Notice the system only lets me deposit assets I actually own, and tracks how much is available versus locked in vaults. This prevents double-spending."
 
 ---
 
-### PART 3: Multi-Asset Deposits (60 seconds)
+### PART 3: Multi-Asset Deposits (45 seconds)
 
-**[Screen: Still on /vaults]**
+**[Screen: Still on vault detail page]**
 
 **Script**:
-> "PrivaMargin supports multiple asset types including Canton Coin, Bitcoin, Ethereum, and stablecoins like CUSD."
+> "Let's add more collateral diversity. First, I'll get some Bitcoin."
 
 **Actions**:
-
-**Deposit 1 - Canton Coin**:
-1. Click "Deposit Asset" on VAULT-DEMO-001
-2. Fill form:
-   - Asset ID: `CC-001`
-   - Asset Type: `Canton Coin (CC)`
-   - Amount: `500000`
-3. Click "Deposit"
-4. Show vault updated: Total Value: $500,000
-
-**Script**:
-> "We've deposited 500,000 Canton Coins worth $500,000."
-
-**Deposit 2 - Bitcoin**:
-1. Click "Deposit Asset" again
-2. Fill form:
-   - Asset ID: `BTC-001`
+1. Navigate back to /assets
+2. Click "Demo Transfer"
+3. Fill form:
+   - Asset ID: `btc-001`
    - Asset Type: `Bitcoin (BTC)`
-   - Amount: `5.26`
-3. Click "Deposit"
-4. Show vault updated: Total Value: $1,000,000
+   - Amount: `0.5`
+4. Click "Receive Demo Assets"
+5. Navigate back to vault detail page
+6. Click "Deposit"
+7. Select btc-001 from dropdown
+8. Enter amount: `0.5`
+9. Click "Deposit Asset"
+10. Show vault updates:
+    - Total Value: ~$46,350 ($350 + $46,000)
+    - Assets: 2
+    - Both asset cards visible
 
 **Script**:
-> "And 5.26 Bitcoin, bringing our total collateral to $1 million. Notice the vault now shows 2 assets."
+> "Now our vault has $46,000 in collateral across two different assets, all valued at real-time market prices."
 
 ---
 
@@ -119,38 +156,38 @@ curl http://localhost:4000/health
 **[Screen: Navigate to /margin]**
 
 **Script**:
-> "Now here's the key innovation: Institution B needs to verify we have sufficient margin for a trading position requiring $800,000."
+> "Here's the key innovation: Institution B needs to verify we have sufficient margin for a $30,000 trading position."
 
 **Actions**:
 1. Click "Margin" in navigation
-2. Show the privacy notice at top (highlight it)
-3. Fill verification form:
-   - Position ID: `POS-001`
-   - Vault ID: `VAULT-DEMO-001`
-   - Required Margin: `800000`
-   - Collateral Value: `1000000`
-4. Click "Verify Margin"
+2. Highlight the privacy notice at top
+3. Click "Auto-fill from Vault" button
+4. Select `demo-vault-001` from dropdown
+5. Show form auto-fills:
+   - Vault ID: demo-vault-001
+   - Collateral Value: 46350 (auto-filled)
+6. Manually enter:
+   - Position ID: `pos-demo-001`
+   - Required Margin: `30000`
+7. Click "Verify Margin"
 
 **Script**:
 > "Watch what happens - the system performs a zero-knowledge proof verification."
 
 **Actions**:
-5. Show result card:
+8. Show result card:
    - Green checkmark
    - Status: "Sufficient"
    - ZK Proof hash displayed
    - Timestamp shown
+9. Point to "What Counterparty Sees" section
 
 **Script**:
-> "Institution B receives ONLY the status 'Sufficient' and a cryptographic proof. They do NOT see our actual collateral value of $1 million. This is the privacy guarantee."
-
-**Actions**:
-6. Point to "What Counterparty Sees" section
-7. Highlight that collateral value is NOT disclosed
+> "Institution B receives ONLY the status 'Sufficient' and a cryptographic proof. They do NOT see our actual collateral value of $46,350. This is the privacy guarantee - they only know we meet the requirement, not by how much."
 
 ---
 
-### PART 5: Margin Call Scenario (45 seconds)
+### PART 5: Automated Margin Call (45 seconds)
 
 **[Screen: Still on /margin]**
 
@@ -160,66 +197,100 @@ curl http://localhost:4000/health
 **Actions**:
 1. Clear the form
 2. Fill new verification:
-   - Position ID: `POS-002`
-   - Vault ID: `VAULT-DEMO-001`
-   - Required Margin: `1200000` (more than we have)
-   - Collateral Value: `1000000`
+   - Position ID: `pos-demo-002`
+   - Vault ID: `demo-vault-001`
+   - Required Margin: `50000` (more than we have)
+   - Collateral Value: `46350`
 3. Click "Verify Margin"
 4. Show result:
    - Red X icon
    - Status: "Insufficient"
+   - Notice appears: "Margin call created"
 
 **Script**:
-> "Now the status is 'Insufficient' - this would trigger an automated margin call."
+> "The system automatically creates a margin call when collateral is insufficient."
 
 **Actions**:
 5. Navigate to /margin-calls
-6. Show the margin call card (if created, or explain the process)
+6. Show the margin call card:
+   - Position ID: pos-demo-002
+   - Required Amount: $50,000
+   - Status: Active
+   - Created timestamp
+7. Click "Settle Margin Call" button
+8. Show success toast
+9. Show margin call disappears (status changed to Settled)
 
 **Script**:
-> "The system automatically creates a margin call. Institution A has 24 hours to add collateral or the smart contract executes automatic settlement - all while maintaining privacy."
+> "Institution A can settle the margin call, and the system tracks the resolution - all while maintaining privacy throughout the process."
 
 ---
 
-### PART 6: Asset Management (30 seconds)
+### PART 6: Vault Asset Management (30 seconds)
+
+**[Screen: Navigate back to vault detail page]**
+
+**Script**:
+> "The vault provides complete asset management capabilities."
+
+**Actions**:
+1. Show vault detail page with both assets
+2. Click "Withdraw" button
+3. Select cc-001 from dropdown
+4. Show available amount: 5000 CC
+5. Enter amount: `2000`
+6. Click "Withdraw Asset"
+7. Show vault updates:
+   - Total Value decreases
+   - cc-001 amount shows 3000 (down from 5000)
+
+**Script**:
+> "Assets can be withdrawn at any time, and the system automatically unlocks them for use elsewhere. The vault value updates in real-time based on current market prices."
+
+---
+
+### PART 7: Network-Specific Addresses (30 seconds)
 
 **[Screen: Navigate to /assets]**
 
 **Script**:
-> "PrivaMargin supports a wide range of tokenized assets."
+> "PrivaMargin supports receiving assets across different blockchain networks."
 
 **Actions**:
-1. Click "Assets" in navigation
-2. Scroll through asset type cards showing logos:
-   - Canton Coin
-   - CUSD (Brale stablecoin)
-   - Bitcoin, Ethereum, Solana
-   - Show the logos loading from URLs
-3. Show "Your Assets" section with the 2 deposited assets
+1. Click "Receive" button
+2. Show asset type dropdown
+3. Select different assets to show different address formats:
+   - Canton Coin: `canton:institutiona:...`
+   - Bitcoin: `bc1q...`
+   - Ethereum: `0x...`
+   - Solana: Base58 format
+4. Show QR code generates for each address
 
 **Script**:
-> "All assets include official logos and real-time pricing. This makes it easy to manage diverse collateral portfolios."
+> "Each asset type generates a network-specific address with a scannable QR code, making it easy to receive real assets."
 
 ---
 
 ### CLOSING (30 seconds)
 
-**[Screen: Navigate back to /docs or landing]**
+**[Screen: Navigate to /docs]**
 
 **Script**:
-> "To summarize: PrivaMargin enables institutional-grade collateral management with three key innovations:
+> "To summarize: PrivaMargin delivers institutional-grade collateral management with four key innovations:
 >
 > 1. Zero-knowledge margin verification - prove sufficiency without revealing values
-> 2. Multi-asset support - Canton Coin, crypto, stablecoins, and RWAs
-> 3. Automated settlement - smart contract-driven margin calls
+> 2. Real-time pricing - Live market data from CoinMarketCap for accurate valuations
+> 3. Multi-asset support - Canton Coin, crypto, stablecoins with asset locking to prevent double-spending
+> 4. Automated margin calls - Smart contract-driven risk management
 >
 > This addresses a $600 trillion OTC derivatives market where privacy and compliance are critical.
 >
 > The complete source code, API documentation, and deployment instructions are available on GitHub. Thank you!"
 
 **Actions**:
-- Show docs page briefly
-- End on landing page or GitHub repo
+- Show API documentation tabs
+- Show GitHub links
+- End on landing page
 
 ---
 
@@ -242,12 +313,14 @@ curl http://localhost:4000/health
 - [ ] Test all flows once
 - [ ] Prepare script notes
 - [ ] Check audio levels
+- [ ] Verify backend shows CoinMarketCap prices loaded
 
 ### During Recording
 - Speak clearly and at moderate pace
 - Pause briefly between sections
 - Use mouse to highlight important elements
 - Keep cursor movements smooth
+- Point out live prices updating
 
 ### After Recording
 - Trim any mistakes
@@ -259,25 +332,30 @@ curl http://localhost:4000/health
 
 ## Quick Test Commands
 
+### Check Prices
+```bash
+curl http://localhost:4000/api/assets/prices
+```
+
 ### Create Vault
 ```bash
 curl -X POST http://localhost:4000/api/vaults/create \
   -H "Content-Type: application/json" \
-  -d '{"owner":"InstitutionA","vaultId":"VAULT-DEMO-001"}'
+  -d '{"owner":"InstitutionA","vaultId":"demo-vault-001"}'
 ```
 
-### Deposit Canton Coin
+### Mint Canton Coin
 ```bash
-curl -X POST http://localhost:4000/api/vaults/VAULT-DEMO-001/deposit \
+curl -X POST http://localhost:4000/api/assets/mint \
   -H "Content-Type: application/json" \
-  -d '{"assetId":"CC-001","assetType":"CC","amount":500000}'
+  -d '{"owner":"InstitutionA","assetId":"cc-001","assetType":"CC","amount":10000}'
 ```
 
-### Deposit Bitcoin
+### Deposit to Vault
 ```bash
-curl -X POST http://localhost:4000/api/vaults/VAULT-DEMO-001/deposit \
+curl -X POST http://localhost:4000/api/vaults/demo-vault-001/deposit \
   -H "Content-Type: application/json" \
-  -d '{"assetId":"BTC-001","assetType":"BTC","amount":5.26}'
+  -d '{"assetId":"cc-001","assetType":"CC","amount":5000}'
 ```
 
 ### Verify Margin (Sufficient)
@@ -285,23 +363,41 @@ curl -X POST http://localhost:4000/api/vaults/VAULT-DEMO-001/deposit \
 curl -X POST http://localhost:4000/api/margin/verify \
   -H "Content-Type: application/json" \
   -d '{
-    "positionId":"POS-001",
-    "vaultId":"VAULT-DEMO-001",
-    "requiredMargin":800000,
-    "collateralValue":1000000
+    "positionId":"pos-demo-001",
+    "vaultId":"demo-vault-001",
+    "requiredMargin":30000,
+    "collateralValue":46350
   }'
 ```
 
-### Verify Margin (Insufficient)
+### Verify Margin (Insufficient - Creates Margin Call)
 ```bash
 curl -X POST http://localhost:4000/api/margin/verify \
   -H "Content-Type: application/json" \
   -d '{
-    "positionId":"POS-002",
-    "vaultId":"VAULT-DEMO-001",
-    "requiredMargin":1200000,
-    "collateralValue":1000000
+    "positionId":"pos-demo-002",
+    "vaultId":"demo-vault-001",
+    "requiredMargin":50000,
+    "collateralValue":46350
   }'
+```
+
+### Get Active Margin Calls
+```bash
+curl http://localhost:4000/api/margin/margin-calls/active
+```
+
+### Settle Margin Call
+```bash
+curl -X POST http://localhost:4000/api/margin/margin-calls/MC-1234567890/settle \
+  -H "Content-Type: application/json"
+```
+
+### Withdraw from Vault
+```bash
+curl -X POST http://localhost:4000/api/vaults/demo-vault-001/withdraw \
+  -H "Content-Type: application/json" \
+  -d '{"assetId":"cc-001","amount":2000}'
 ```
 
 ---
@@ -317,11 +413,25 @@ If live demo fails, have these ready:
 
 ## Key Messages to Emphasize
 
-1. **Privacy**: Counterparty never sees actual collateral value
-2. **Innovation**: Zero-knowledge proofs for institutional finance
-3. **Practical**: Solves real $600T+ market problem
-4. **Complete**: Full-stack working prototype
-5. **Canton**: Built specifically for Canton Network
+1. **Privacy**: Counterparty never sees actual collateral value - only proof of sufficiency
+2. **Real-Time Pricing**: Live CoinMarketCap integration for accurate valuations
+3. **Asset Locking**: Prevents double-spending across vaults
+4. **Innovation**: Zero-knowledge proofs for institutional finance
+5. **Practical**: Solves real $600T+ OTC derivatives market problem
+6. **Complete**: Full-stack working prototype with live data
+7. **Canton**: Built specifically for Canton Network with Daml contracts
+
+---
+
+## New Features to Highlight
+
+1. **Live Market Prices**: CoinMarketCap API integration with 1-minute refresh
+2. **Asset Locking System**: Tracks available vs locked amounts
+3. **Vault Detail Pages**: Dedicated management interface for each vault
+4. **Network-Specific Addresses**: Different address formats with QR codes
+5. **Withdraw Functionality**: Complete asset lifecycle management
+6. **Auto-fill from Vault**: Streamlined margin verification workflow
+7. **Margin Call Settlement**: Complete flow from creation to resolution
 
 ---
 
@@ -329,7 +439,6 @@ If live demo fails, have these ready:
 
 - Backend: https://github.com/dpny518/cpcv-hackathon
 - Frontend: https://github.com/dpny518/privamargin-integrator
-- Live Demo: [Your deployed URL]
 
 ---
 

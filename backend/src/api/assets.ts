@@ -50,7 +50,8 @@ router.get('/types', async (req, res) => {
 router.post('/mint', async (req, res) => {
   const { owner, assetId, assetType, amount } = req.body;
   
-  const valueUSD = priceOracle.getPrice(assetType) * amount;
+  const price = await priceOracle.getPrice(assetType);
+  const valueUSD = price * amount;
   
   const asset = {
     assetId,
@@ -86,9 +87,20 @@ router.get('/owner/:party', async (req, res) => {
 
 router.get('/price/:assetType', async (req, res) => {
   const { assetType } = req.params;
-  const price = priceOracle.getPrice(assetType);
+  const price = await priceOracle.getPrice(assetType);
   
   res.json({ assetType, price, timestamp: new Date() });
+});
+
+router.get('/prices', async (req, res) => {
+  const assetTypes = ['CC', 'CUSD', 'USDC', 'USDT', 'BTC', 'ETH', 'SOL', 'TRX', 'TON'];
+  const prices: any = {};
+  
+  for (const assetType of assetTypes) {
+    prices[assetType] = await priceOracle.getPrice(assetType);
+  }
+  
+  res.json({ prices, timestamp: new Date() });
 });
 
 export default router;

@@ -4,6 +4,7 @@ import priceOracle from '../oracle/priceOracle';
 const router = Router();
 
 const assets = new Map();
+const lockedAssets = new Map(); // Track assets locked in vaults: assetId -> { vaultId, amount }
 
 router.get('/types', async (req, res) => {
   res.json([
@@ -67,7 +68,18 @@ router.post('/mint', async (req, res) => {
 
 router.get('/owner/:party', async (req, res) => {
   const { party } = req.params;
-  const ownerAssets = Array.from(assets.values()).filter((a: any) => a.owner === party);
+  const ownerAssets = Array.from(assets.values())
+    .filter((a: any) => a.owner === party)
+    .map((asset: any) => {
+      const locked = lockedAssets.get(asset.assetId) || { amount: 0 };
+      const availableAmount = asset.amount - locked.amount;
+      return {
+        ...asset,
+        lockedAmount: locked.amount,
+        availableAmount,
+        locked: availableAmount <= 0
+      };
+    });
   
   res.json(ownerAssets);
 });
@@ -80,3 +92,4 @@ router.get('/price/:assetType', async (req, res) => {
 });
 
 export default router;
+export { assets, lockedAssets };

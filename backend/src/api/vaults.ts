@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import priceOracle from '../oracle/priceOracle';
+import { assets, lockedAssets } from './assets';
 
 const router = Router();
 
@@ -31,6 +32,24 @@ router.post('/:id/deposit', async (req, res) => {
   if (!vault) {
     return res.status(404).json({ error: 'Vault not found' });
   }
+
+  // Check if asset exists
+  const asset = assets.get(assetId);
+  if (!asset) {
+    return res.status(404).json({ error: 'Asset not found' });
+  }
+
+  // Check available balance
+  const locked = lockedAssets.get(assetId) || { amount: 0 };
+  const availableAmount = asset.amount - locked.amount;
+  
+  if (amount > availableAmount) {
+    return res.status(400).json({ 
+      error: 'Insufficient balance', 
+      available: availableAmount,
+      requested: amount 
+    });
+  }
   
   const valueUSD = priceOracle.getPrice(assetType) * amount;
   
@@ -42,6 +61,10 @@ router.post('/:id/deposit', async (req, res) => {
   });
   
   vault.totalValue = vault.collateralAssets.reduce((sum: number, a: any) => sum + a.valueUSD, 0);
+
+  // Lock the asset
+  const currentLocked = lockedAssets.get(assetId) || { vaultId: id, amount: 0 };
+  lockedAssets.set(assetId, { vaultId: id, amount: currentLocked.amount + amount });
   
   res.json({ success: true, vault });
 });
